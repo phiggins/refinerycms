@@ -12,11 +12,14 @@ gemspec
 # REFINERY CMS DEVELOPMENT ====================================================
 
 # Database Configuration
-if defined? JRUBY_VERSION
-  gem 'activerecord-jdbcsqlite3-adapter',
-      :git => 'git://github.com/nicksieger/activerecord-jdbc-adapter.git'
+platforms :jruby do
+  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'activerecord-jdbcmysql-adapter'
+  gem 'activerecord-jdbcpostgresql-adapter'
   gem 'jruby-openssl'
-else
+end
+
+unless defined?(JRUBY_VERSION)
   gem 'sqlite3'
   gem 'mysql2'
   gem 'pg'
@@ -24,14 +27,15 @@ end
 
 group :development do
   gem 'rails-dev-tweaks', '~> 0.5.0'
+  # see https://github.com/wavii/rails-dev-tweaks/issues/3
+  gem 'routing-filter', :git => 'git://github.com/nevir/routing-filter.git'
 end
-# see https://github.com/wavii/rails-dev-tweaks/issues/3
-gem 'routing-filter', :git => "https://github.com/nevir/routing-filter"
 
 group :development, :test do
   gem 'refinerycms-testing', '~> 2.0.0'
   gem 'capybara-webkit', '~> 0.7.0'
   gem 'generator_spec'
+  gem 'database_cleaner', :git => 'git://github.com/bmabey/database_cleaner.git'
 
   platforms :mri_18 do
     gem 'rcov'
@@ -99,7 +103,7 @@ gem 'jquery-rails'
 # gem 'refinerycms-page-images',  '~> 1.0'
 
 # Add i18n support (optional, you can remove this if you really want to).
-gem 'refinerycms-i18n',           '~> 2.0.0', :git => 'git://github.com/parndt/refinerycms-i18n'
+gem 'refinerycms-i18n',           '~> 2.0.0', :git => 'git://github.com/parndt/refinerycms-i18n.git'
 # END USER DEFINED
 
 # Use unicorn as the web server
