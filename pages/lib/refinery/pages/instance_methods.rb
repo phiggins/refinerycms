@@ -18,7 +18,7 @@ module Refinery
 
       # Compiles the default menu.
       def refinery_menu_pages
-        ::Refinery::Menu.new(::Refinery::Page.fast_menu)
+        ::Refinery::Menu.new(::Refinery::Page.menu_pages)
       end
 
     protected

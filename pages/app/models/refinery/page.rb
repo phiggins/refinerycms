@@ -112,7 +112,7 @@ module Refinery
         where(:show_in_menu => true).with_globalize
       end
 
-      def fast_menu
+      def menu_pages
         live.in_menu.order('lft ASC').includes(:translations)
       end
 

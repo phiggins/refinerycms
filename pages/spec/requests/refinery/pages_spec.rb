@@ -11,7 +11,7 @@ module Refinery
       Refinery::PagesController.any_instance.stub(:refinery_user_required?).and_return(false)
 
       # Stub the menu pages we're expecting
-      Refinery::Page.stub(:fast_menu).and_return([home_page, about_page])
+      Refinery::Page.stub(:menu_pages).and_return([home_page, about_page])
     end
 
     def standard_page_menu_items_exist?
@@ -84,7 +84,7 @@ module Refinery
       let(:page_mt) { FactoryGirl.create(:page, :title => 'Company News') }
 
       before(:each) do
-        Refinery::Page.stub(:fast_menu).and_return([page_mt])
+        Refinery::Page.stub(:menu_pages).and_return([page_mt])
       end
 
       describe 'set' do
@@ -127,7 +127,7 @@ module Refinery
     describe 'when browser_title is set' do
       let(:page_bt) { FactoryGirl.create(:page, :title => 'About Us', :browser_title => 'About Our Company') }
       before(:each) do
-        Refinery::Page.stub(:fast_menu).and_return([page_bt])
+        Refinery::Page.stub(:menu_pages).and_return([page_bt])
       end
       it 'should have the browser_title in the title tag' do
         visit '/about-us'
@@ -146,7 +146,7 @@ module Refinery
     describe 'custom_slug' do
       let(:page_cs) { FactoryGirl.create(:page, :title => 'About Us') }
       before(:each) do
-        Refinery::Page.stub(:fast_menu).and_return([page_cs])
+        Refinery::Page.stub(:menu_pages).and_return([page_cs])
       end
 
       describe 'not set' do
@@ -211,7 +211,7 @@ module Refinery
       }
 
       before(:each) do
-        Refinery::Page.stub(:fast_menu).and_return([home_page, submenu_page, about_page.reload].sort_by(&:lft))
+        Refinery::Page.stub(:menu_pages).and_return([home_page, submenu_page, about_page.reload].sort_by(&:lft))
       end
 
       it "succeeds" do
@@ -227,7 +227,7 @@ module Refinery
     describe "special characters title" do
       let(:special_page) { FactoryGirl.create(:page, :title => 'ä ö ü spéciål chåråctÉrs') }
       before(:each) do
-        Refinery::Page.stub(:fast_menu).and_return([home_page, about_page, special_page])
+        Refinery::Page.stub(:menu_pages).and_return([home_page, about_page, special_page])
       end
 
       it "succeeds" do
@@ -246,7 +246,7 @@ module Refinery
                                                      :parent_id => about_page.id) }
 
       before(:each) do
-        Refinery::Page.stub(:fast_menu).and_return([home_page, special_page, about_page.reload].sort_by(&:lft))
+        Refinery::Page.stub(:menu_pages).and_return([home_page, special_page, about_page.reload].sort_by(&:lft))
       end
 
       it "succeeds" do
@@ -264,7 +264,7 @@ module Refinery
       let(:hidden_page) { FactoryGirl.create(:page, :title => "Hidden", :show_in_menu => false) }
 
       before(:each) do
-        Refinery::Page.stub(:fast_menu).and_return([home_page, about_page])
+        Refinery::Page.stub(:menu_pages).and_return([home_page, about_page])
       end
 
       it "succeeds" do
@@ -287,7 +287,7 @@ module Refinery
        about.skip_to_first_child = true
        about.save!
 
-       Refinery::Page.stub(:fast_menu).and_return([home_page, about, child_page].sort_by(&:lft))
+       Refinery::Page.stub(:menu_pages).and_return([home_page, about, child_page].sort_by(&:lft))
       end
 
       it "succeeds" do
