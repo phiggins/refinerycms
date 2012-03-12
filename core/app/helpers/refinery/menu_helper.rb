@@ -62,5 +62,16 @@ module Refinery
       [path, URI.decode(path)].include?(url) || path == "/#{page.original_id}"
     end
 
+    DEFAULT_MENU_OPTIONS = {
+      :dom_id => 'menu',
+      :css => 'menu',
+    }
+
+    def refinery_menu(options={})
+      options = DEFAULT_MENU_OPTIONS.merge(options)
+
+      render("/refinery/menu", options)
+    end
+
   end
 end
